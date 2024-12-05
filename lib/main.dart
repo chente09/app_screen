@@ -27,17 +27,17 @@ class Cuerpo extends StatelessWidget {
       body: Column(
         children: [
           Text("Pantalla 1"),
-          pantalla2_btn(context),
+          login_btn(context),
         ],
       ),
     );
   }
 }
 
-Widget pantalla2_btn(context){
-  return FilledButton(onPressed: ()=>pantalla2(context), child: Text("Login"),);
+Widget login_btn(context){
+  return FilledButton(onPressed: ()=>login(context), child: Text("Login"),);
 }
 
-void pantalla2(context){
+void login(context){
   Navigator.push(context, MaterialPageRoute(builder: (context)=>Loginscreen()));
 }
