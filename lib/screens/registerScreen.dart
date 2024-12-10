@@ -86,14 +86,14 @@ class Registerscreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    backgroundColor: const Color.fromARGB(255, 183, 169, 169),
+                    backgroundColor: const Color(0xFF537EB8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                   child: const Text(
                     'Registrarse',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -101,7 +101,7 @@ class Registerscreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('¿Ya tienes cuenta? Inicia sesión aquí'),
+                  child: const Text('¿Ya tienes cuenta? Inicia sesión aquí', style: TextStyle(color: Color(0xFF537EB8)),),
                 ),
               ],
             ),
