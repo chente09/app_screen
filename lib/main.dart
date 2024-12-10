@@ -21,22 +21,29 @@ class Cuerpo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Pantalla 1"),
-      ),
-      body: Column(
-        children: [
-          Text("Pantalla 1"),
-          login_btn(context),
-        ],
+      body: Container(
+        color: Colors.black,
+        height: double.infinity,
+        child: Center(
+          child: Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: [
+              Image.asset('assets/logo_taller.png', height: 300,),
+              login_btn(context)
+             ],
+          ),
+        ),
       ),
     );
   }
 }
 
-Widget login_btn(context){
-  return FilledButton(onPressed: ()=>login(context), child: Text("Login"),);
+Widget login_btn(context) {
+  return FilledButton(
+    onPressed: () => login(context), child: Text("Login"), style: TextButton.styleFrom(backgroundColor: Color(0xFF537EB8),),
+  );
 }
+
 
 void login(context){
   Navigator.push(context, MaterialPageRoute(builder: (context)=>Loginscreen()));
