@@ -1,9 +1,17 @@
 import 'package:app_streaming/screens/loginScreen.dart';
 import 'package:flutter/material.dart';
 
-void main(){
+//Firebase
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+Future<void> main() async {
   runApp(Pantalla01());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
+
 class Pantalla01 extends StatelessWidget {
   const Pantalla01({super.key});
 
@@ -26,11 +34,14 @@ class Cuerpo extends StatelessWidget {
         height: double.infinity,
         child: Center(
           child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-              Image.asset('assets/logo_taller.png', height: 300,),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/logo_taller.png',
+                height: 300,
+              ),
               login_btn(context)
-             ],
+            ],
           ),
         ),
       ),
@@ -40,11 +51,15 @@ class Cuerpo extends StatelessWidget {
 
 Widget login_btn(context) {
   return FilledButton(
-    onPressed: () => login(context), child: Text("Login"), style: TextButton.styleFrom(backgroundColor: Color(0xFF537EB8),),
+    onPressed: () => login(context),
+    child: Text("Login"),
+    style: TextButton.styleFrom(
+      backgroundColor: Color(0xFF537EB8),
+    ),
   );
 }
 
-
-void login(context){
-  Navigator.push(context, MaterialPageRoute(builder: (context)=>Loginscreen()));
+void login(context) {
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => Loginscreen()));
 }

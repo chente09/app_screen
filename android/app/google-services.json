@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "10832189466",
+    "firebase_url": "https://aplasta-insectos-default-rtdb.firebaseio.com",
+    "project_id": "aplasta-insectos",
+    "storage_bucket": "aplasta-insectos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10832189466:android:311a30d85b23ecc3b8d9a3",
+        "android_client_info": {
+          "package_name": "com.example.app_streaming"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgtfbh1XxPK_I9p1i8qw7P4ATEY9hcYfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

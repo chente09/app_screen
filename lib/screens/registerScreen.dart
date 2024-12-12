@@ -1,16 +1,126 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class Registerscreen extends StatelessWidget {
-  const Registerscreen({super.key});
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController dobController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  Registerscreen({super.key});
+
+  Future<void> register(BuildContext context) async {
+    String name = nameController.text.trim();
+    String username = usernameController.text.trim();
+    String dob = dobController.text.trim();
+    String phone = phoneController.text.trim();
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+    String confirmPassword = confirmPasswordController.text.trim();
+
+    if (password != confirmPassword) {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Error'),
+          content: Text('Las contraseñas no coinciden'),
+          actions: [TextButton(onPressed: null, child: Text('Aceptar'))],
+        ),
+      );
+      return;
+    }
+
+    try {
+      // Crear usuario en Firebase Authentication
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Obtener UID del usuario
+      String uid = credential.user!.uid;
+
+      // Guardar datos adicionales en Firebase Realtime Database
+      DatabaseReference ref = FirebaseDatabase.instance.ref("users/$uid");
+      await ref.set({
+        "name": name,
+        "username": username,
+        "dob": dob,
+        "phone": phone,
+        "email": email,
+      });
+
+      // Mostrar mensaje de éxito
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Registro Exitoso'),
+          content: const Text('El usuario ha sido registrado correctamente'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Cerrar diálogo
+                Navigator.pop(context); // Volver a la pantalla de login
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      if (e.code == 'weak-password') {
+        errorMessage = 'La contraseña es demasiado débil.';
+      } else if (e.code == 'email-already-in-use') {
+        errorMessage = 'El correo ya está registrado.';
+      } else {
+        errorMessage = 'Ocurrió un error. Inténtalo de nuevo.';
+      }
+
+      // Mostrar alerta de error
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      // Manejo de errores inesperados
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text('Ocurrió un error: $e'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Registro',
-          style: TextStyle(color: Colors.white),
-        ),
         backgroundColor: const Color.fromARGB(255, 13, 1, 1),
       ),
       body: Padding(
@@ -37,6 +147,7 @@ class Registerscreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 TextField(
+                  controller: nameController,
                   decoration: InputDecoration(
                     labelText: 'Nombre completo',
                     border: OutlineInputBorder(
@@ -48,6 +159,43 @@ class Registerscreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 TextField(
+                  controller: usernameController,
+                  decoration: InputDecoration(
+                    labelText: 'Nombre de usuario',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    prefixIcon: const Icon(Icons.person),
+                  ),
+                  keyboardType: TextInputType.name,
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: dobController,
+                  decoration: InputDecoration(
+                    labelText: 'Fecha de nacimiento',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    prefixIcon: const Icon(Icons.calendar_today),
+                  ),
+                  keyboardType: TextInputType.datetime,
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: phoneController,
+                  decoration: InputDecoration(
+                    labelText: 'Teléfono',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    prefixIcon: const Icon(Icons.phone),
+                  ),
+                  keyboardType: TextInputType.phone,
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                     labelText: 'Correo electrónico',
                     border: OutlineInputBorder(
@@ -59,6 +207,7 @@ class Registerscreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 TextField(
+                  controller: passwordController,
                   decoration: InputDecoration(
                     labelText: 'Contraseña',
                     border: OutlineInputBorder(
@@ -70,6 +219,7 @@ class Registerscreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 TextField(
+                  controller: confirmPasswordController,
                   decoration: InputDecoration(
                     labelText: 'Confirmar contraseña',
                     border: OutlineInputBorder(
@@ -81,9 +231,7 @@ class Registerscreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 ElevatedButton(
-                  onPressed: () {
-                    // Lógica para registrarse
-                  },
+                  onPressed: () => register(context),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     backgroundColor: const Color(0xFF537EB8),
@@ -101,7 +249,10 @@ class Registerscreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('¿Ya tienes cuenta? Inicia sesión aquí', style: TextStyle(color: Color(0xFF537EB8)),),
+                  child: const Text(
+                    '¿Ya tienes cuenta? Inicia sesión aquí',
+                    style: TextStyle(color: Color(0xFF537EB8)),
+                  ),
                 ),
               ],
             ),
