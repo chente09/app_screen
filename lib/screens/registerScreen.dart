@@ -120,9 +120,7 @@ class Registerscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 13, 1, 1),
-      ),
+      backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -136,96 +134,174 @@ class Registerscreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
                 const Text(
                   'Regístrate para acceder a contenido exclusivo',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
                 TextField(
                   controller: nameController,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Nombre completo',
+                    labelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
-                    prefixIcon: const Icon(Icons.person),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    prefixIcon: const Icon(Icons.person, color: Colors.white,),
                   ),
                   keyboardType: TextInputType.name,
                 ),
                 const SizedBox(height: 20),
                 TextField(
                   controller: usernameController,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Nombre de usuario',
+                    labelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
-                    prefixIcon: const Icon(Icons.person),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    prefixIcon: const Icon(Icons.person, color: Colors.white,),
                   ),
                   keyboardType: TextInputType.name,
                 ),
                 const SizedBox(height: 20),
                 TextField(
                   controller: dobController,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Fecha de nacimiento',
+                    labelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
-                    prefixIcon: const Icon(Icons.calendar_today),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    prefixIcon: const Icon(Icons.calendar_today, color: Colors.white,),
                   ),
                   keyboardType: TextInputType.datetime,
                 ),
                 const SizedBox(height: 20),
                 TextField(
                   controller: phoneController,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Teléfono',
+                    labelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
-                    prefixIcon: const Icon(Icons.phone),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    prefixIcon: const Icon(Icons.phone, color: Colors.white),
                   ),
                   keyboardType: TextInputType.phone,
                 ),
                 const SizedBox(height: 20),
                 TextField(
                   controller: emailController,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Correo electrónico',
+                    labelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
-                    prefixIcon: const Icon(Icons.email),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    prefixIcon: const Icon(Icons.email, color: Colors.white,),
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 20),
                 TextField(
                   controller: passwordController,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Contraseña',
+                    labelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
-                    prefixIcon: const Icon(Icons.lock),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    prefixIcon: const Icon(Icons.lock, color: Colors.white,),
                   ),
                   obscureText: true,
                 ),
                 const SizedBox(height: 20),
                 TextField(
                   controller: confirmPasswordController,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Confirmar contraseña',
+                    labelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
-                    prefixIcon: const Icon(Icons.lock_outline),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    prefixIcon: const Icon(Icons.lock_outline, color: Colors.white,),
                   ),
                   obscureText: true,
                 ),

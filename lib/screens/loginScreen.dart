@@ -1,5 +1,6 @@
 // ignore: file_names
 import 'package:app_streaming/main.dart';
+import 'package:app_streaming/navigators/bottomNavigator.dart';
 import 'package:app_streaming/screens/perfilUserScreen.dart';
 import 'package:app_streaming/screens/registerScreen.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,6 @@ class _LoginscreenState extends State<Loginscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        
         color: Colors.black,
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -55,25 +55,46 @@ class _LoginscreenState extends State<Loginscreen> {
                 const SizedBox(height: 40),
                 TextField(
                   controller: _email,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Correo electrónico',
+                    labelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
-                    prefixIcon: const Icon(Icons.email),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    prefixIcon: const Icon(Icons.email, color: Colors.white),
                   ),
-                  style: TextStyle(color: Colors.white),
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 20),
                 TextField(
                   controller: _password,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Contraseña',
+                    labelStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
-                    prefixIcon: const Icon(Icons.lock),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: const BorderSide(color: Colors.white), 
+                    ),
+                    prefixIcon: const Icon(Icons.lock, color: Colors.white,),
                   ),
                   obscureText: true,
                 ),
@@ -130,7 +151,7 @@ Future<void> login(String email, String pass, BuildContext context) async {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PerfilUserScreen()),
+      MaterialPageRoute(builder: (context) => BottomNavigator()),
     );
   } on FirebaseAuthException catch (e) {
     String errorMessage;
