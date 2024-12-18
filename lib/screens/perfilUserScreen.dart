@@ -41,7 +41,6 @@ class PerfilUserScreen extends StatelessWidget {
     final usernameController = TextEditingController(text: datos['username']);
     final dobController = TextEditingController(text: datos['dob']);
     final phoneController = TextEditingController(text: datos['phone']);
-    final emailController = TextEditingController(text: datos['email']);
 
     showDialog(
       context: context,
@@ -67,11 +66,6 @@ class PerfilUserScreen extends StatelessWidget {
                 decoration: const InputDecoration(labelText: 'Teléfono'),
                 keyboardType: TextInputType.phone,
               ),
-              TextField(
-                controller: emailController,
-                decoration: const InputDecoration(labelText: 'Correo Electrónico'),
-                keyboardType: TextInputType.emailAddress,
-              ),
             ],
           ),
         ),
@@ -87,9 +81,7 @@ class PerfilUserScreen extends StatelessWidget {
                 'username': usernameController.text,
                 'dob': dobController.text,
                 'phone': phoneController.text,
-                'email': emailController.text,
               };
-
               await actualizar(nuevosDatos);
               Navigator.of(context).pop();
             },

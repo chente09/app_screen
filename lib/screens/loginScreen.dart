@@ -27,10 +27,9 @@ class _LoginscreenState extends State<Loginscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 13, 1, 1),
-      ),
-      body: Padding(
+      body: Container(
+        
+        color: Colors.black,
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: SingleChildScrollView(
@@ -43,13 +42,14 @@ class _LoginscreenState extends State<Loginscreen> {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
                 const Text(
                   'Inicia sesión para disfrutar de nuestro contenido',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 16, color: Colors.white,),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
@@ -62,6 +62,7 @@ class _LoginscreenState extends State<Loginscreen> {
                     ),
                     prefixIcon: const Icon(Icons.email),
                   ),
+                  style: TextStyle(color: Colors.white),
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 20),
