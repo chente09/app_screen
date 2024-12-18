@@ -1,3 +1,5 @@
+import 'package:app_streaming/navigators/bottomNavigator.dart';
+import 'package:app_streaming/navigators/multimediaNavigator.dart';
 import 'package:app_streaming/screens/loginScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -6,10 +8,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  runApp(Pantalla01());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  runApp(Pantalla01());
 }
 
 class Pantalla01 extends StatelessWidget {
@@ -18,7 +20,7 @@ class Pantalla01 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Cuerpo(),
+      home: BottomNavigator(),
     );
   }
 }
