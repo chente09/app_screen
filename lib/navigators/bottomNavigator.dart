@@ -45,13 +45,17 @@ class Cuerpo extends StatefulWidget {
 class _CuerpoState extends State<Cuerpo> {
 
   int indice = 0;
+
+  List<String> titulos = ["Home", "Profile"];
+
   List<Widget> paginas = [HomeScreen(), PerfilUserScreen()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Para"),
+        title: Text(titulos[indice]),
+        
         actions: [
           IconButton(
             onPressed: () {
@@ -63,7 +67,8 @@ class _CuerpoState extends State<Cuerpo> {
           ),
         ],
       ),
-      body: paginas[indice],
+      body: 
+      paginas[indice],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: indice,
         onTap: (value) {
@@ -80,15 +85,4 @@ class _CuerpoState extends State<Cuerpo> {
   }
 }
 
-class Peliculas extends StatelessWidget {
-  const Peliculas({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("data"),
-      ),
-    );
-  }
-}

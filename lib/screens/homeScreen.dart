@@ -53,51 +53,64 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Inicio - Plataforma de Streaming'),
-      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _videos.isEmpty
               ? const Center(child: Text('No hay contenido disponible'))
-              : GridView.builder(
-                  padding: const EdgeInsets.all(8.0),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 8.0,
-                    mainAxisSpacing: 8.0,
-                    childAspectRatio: 16 / 9,
-                  ),
-                  itemCount: _videos.length,
-                  itemBuilder: (context, index) {
-                    final video = _videos[index];
-                    return GestureDetector(
-                      onTap: () => _navegarAReproductor(context, video['videoUrl'], video['titulo']),
-                      child: Stack(
-                        children: [
-                          Positioned.fill(
-                            child: Image.network(
-                              video['thumbnailUrl'],
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              color: Colors.black54,
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text(
-                                video['titulo'],
-                                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ),
-                        ],
+              : SingleChildScrollView(  // Usamos SingleChildScrollView para permitir desplazamiento
+                  child: Column(
+                    children: [
+                      // Imagen al principio del body
+                      Image.asset(
+                        'assets/logo_taller.png',
+                        height: 200,
                       ),
-                    );
-                  },
+                      // Grid de videos debajo de la imagen
+                      GridView.builder(
+                        shrinkWrap: true, // Esto permite que el GridView ocupe solo el espacio necesario
+                        padding: const EdgeInsets.all(8.0),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8.0,
+                          mainAxisSpacing: 8.0,
+                          childAspectRatio: 16 / 9,
+                        ),
+                        itemCount: _videos.length,
+                        itemBuilder: (context, index) {
+                          final video = _videos[index];
+                          return GestureDetector(
+                            onTap: () => _navegarAReproductor(context, video['videoUrl'], video['titulo']),
+                            child: Stack(
+                              children: [
+                                Positioned.fill(
+                                  child: Image.network(
+                                    video['thumbnailUrl'],
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) =>
+                                        const Icon(Icons.broken_image),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                    color: Colors.black54,
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text(
+                                      video['titulo'],
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
     );
   }

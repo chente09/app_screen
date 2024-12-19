@@ -164,9 +164,6 @@ class PerfilUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Datos del Usuario'),
-      ),
       body: usuarioListView(context),
     );
   }
