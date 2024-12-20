@@ -1,5 +1,3 @@
-import 'package:app_streaming/navigators/bottomNavigator.dart';
-import 'package:app_streaming/navigators/multimediaNavigator.dart';
 import 'package:app_streaming/screens/loginScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +22,7 @@ class Pantalla01 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: BottomNavigator(),
+      home: Cuerpo(),
     );
   }
 }

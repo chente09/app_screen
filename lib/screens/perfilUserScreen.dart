@@ -1,3 +1,4 @@
+import 'package:app_streaming/screens/loginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -59,7 +60,8 @@ class PerfilUserScreen extends StatelessWidget {
               ),
               TextField(
                 controller: dobController,
-                decoration: const InputDecoration(labelText: 'Fecha de Nacimiento'),
+                decoration:
+                    const InputDecoration(labelText: 'Fecha de Nacimiento'),
               ),
               TextField(
                 controller: phoneController,
@@ -164,7 +166,16 @@ class PerfilUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: usuarioListView(context),
-    );
+        body: usuarioListView(context),
+        // Cerrar sesión
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.logout),
+          backgroundColor: Colors.red,
+          onPressed: () async {
+            await FirebaseAuth.instance.signOut();
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Loginscreen()));
+          },
+        ));
   }
 }

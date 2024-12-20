@@ -49,7 +49,7 @@ class _CuerpoState extends State<Cuerpo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Para"),
+        
         actions: [
           IconButton(
             onPressed: () {
