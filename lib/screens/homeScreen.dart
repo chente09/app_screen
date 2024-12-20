@@ -41,6 +41,51 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _mostrarDetalles(BuildContext context, Map<dynamic, dynamic> video) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(video['titulo']),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.network(
+                  video['thumbnailUrl'],
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image),
+                ),
+                const SizedBox(height: 8.0),
+                Text('Descripción:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(video['descripcion'] ?? 'Sin descripción'),
+                const SizedBox(height: 8.0),
+                Text('Género:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(video['genero'] ?? 'Desconocido'),
+                const SizedBox(height: 8.0),
+                Text('Elenco:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(video['elenco'] ?? 'Sin información'),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cerrar'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _navegarAReproductor(context, video['videoUrl'], video['titulo']);
+              },
+              child: const Text('Play'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _navegarAReproductor(BuildContext context, String videoUrl, String titulo) {
     Navigator.push(
       context,
@@ -52,63 +97,80 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, List<Map<dynamic, dynamic>>> videosPorGenero = {};
+    for (var video in _videos) {
+      String genero = video['genero'] ?? 'Sin género';
+      if (!videosPorGenero.containsKey(genero)) {
+        videosPorGenero[genero] = [];
+      }
+      videosPorGenero[genero]!.add(video);
+    }
+
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _videos.isEmpty
               ? const Center(child: Text('No hay contenido disponible'))
-              : SingleChildScrollView(  // Usamos SingleChildScrollView para permitir desplazamiento
+              : SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Imagen al principio del body
-                      Image.asset(
-                        'assets/logo_taller.png',
-                        height: 200,
-                      ),
-                      // Grid de videos debajo de la imagen
-                      GridView.builder(
-                        shrinkWrap: true, // Esto permite que el GridView ocupe solo el espacio necesario
-                        padding: const EdgeInsets.all(8.0),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 8.0,
-                          mainAxisSpacing: 8.0,
-                          childAspectRatio: 16 / 9,
+                      Center(
+                        child: Image.asset(
+                          'assets/logo_taller.png',
+                          height: 200,
                         ),
-                        itemCount: _videos.length,
-                        itemBuilder: (context, index) {
-                          final video = _videos[index];
-                          return GestureDetector(
-                            onTap: () => _navegarAReproductor(context, video['videoUrl'], video['titulo']),
-                            child: Stack(
-                              children: [
-                                Positioned.fill(
-                                  child: Image.network(
-                                    video['thumbnailUrl'],
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) =>
-                                        const Icon(Icons.broken_image),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Container(
-                                    color: Colors.black54,
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Text(
-                                      video['titulo'],
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
                       ),
+                      for (var genero in videosPorGenero.keys) ...[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            genero,
+                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 200,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: videosPorGenero[genero]!.length,
+                            itemBuilder: (context, index) {
+                              final video = videosPorGenero[genero]![index];
+                              return GestureDetector(
+                                onTap: () => _mostrarDetalles(context, video),
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  width: 100,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 160,
+                                        child: Image.network(
+                                          video['thumbnailUrl'],
+                                          fit: BoxFit.fitHeight,
+                                          errorBuilder: (context, error, stackTrace) =>
+                                              const Icon(Icons.broken_image),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4.0),
+                                      Text(
+                                        video['titulo'],
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),
