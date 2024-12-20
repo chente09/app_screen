@@ -46,7 +46,7 @@ class _CuerpoState extends State<Cuerpo> {
 
   int indice = 0;
 
-  List<String> titulos = ["Home", "Profile"];
+  List<String> titulos = ["Home", "Perfil"];
 
   List<Widget> paginas = [HomeScreen(), PerfilUserScreen()];
 
@@ -55,7 +55,7 @@ class _CuerpoState extends State<Cuerpo> {
     return Scaffold(
       appBar: AppBar(
         title: Text(titulos[indice]),
-        
+        backgroundColor: Colors.transparent,
         actions: [
           IconButton(
             onPressed: () {
