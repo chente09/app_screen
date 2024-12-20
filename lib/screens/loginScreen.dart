@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:app_streaming/main.dart';
 import 'package:app_streaming/navigators/bottomNavigator.dart';
+import 'package:app_streaming/navigators/multimediaNavigator.dart';
 import 'package:app_streaming/screens/perfilUserScreen.dart';
 import 'package:app_streaming/screens/registerScreen.dart';
 import 'package:flutter/material.dart';
@@ -148,11 +149,23 @@ Future<void> login(String email, String pass, BuildContext context) async {
       email: email,
       password: pass,
     );
-
-    Navigator.push(
+    
+    //Si el inicio de sesión es con el correo adminstreaming@yop.mail, se redirige a la pantalla de MultimediaCrudNavigator()
+    if (credential.user!.email == 'adminstreaming@yop.mail') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MultimediaCrudNavigator()),
+      );  
+    }
+    //Si el inicio de sesión es con el correo userstreaming@yop.mail, se redirige a la pantalla de PerfilUserScreen()
+    else {
+      Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => BottomNavigator()),
-    );
+    );  
+    }
+    
+
   } on FirebaseAuthException catch (e) {
     String errorMessage;
 
